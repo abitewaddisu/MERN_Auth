@@ -2,7 +2,7 @@
 const SigninScreen = () => {
   return (
     <div>
-      
+      Sign in
     </div>
   )
 }

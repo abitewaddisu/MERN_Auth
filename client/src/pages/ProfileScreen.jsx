@@ -2,7 +2,7 @@
 const ProfileScreen = () => {
   return (
     <div>
-      
+      Profile
     </div>
   )
 }
