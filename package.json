@@ -2,6 +2,7 @@
   "name": "mern_auth",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "client": "npm run dev --prefix client",
@@ -13,6 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
   }
 }
