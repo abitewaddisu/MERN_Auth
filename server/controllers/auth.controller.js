@@ -1,16 +1,17 @@
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs'
+import { errorHandler } from '../utils/error.js';
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
         if (username && email && email.includes('@') && password && password.length > 5) {
-            const usernameFound = User.find({username})
-            const emailFound = User.find({email})
+            const usernameFound = await User.find({username})
+            const emailFound = await User.find({email})
             if (emailFound) {
-                res.status(400).json({message: "Username already exist!"})
+                next(errorHandler(400, "Email already registed!"))
             } else if (usernameFound) {
-                res.status(400).json({message: "Email is already registered!"})
+                next(errorHandler(400, "Username already exists!"))
             } else {
                 const hashedPassword = await bcrypt.hash(password, 12)
                 const newUser = new User({username, email, password : hashedPassword})
@@ -21,7 +22,6 @@ export const signup = async (req, res) => {
             res.status(400).json({ message: "Invalid Credentials"})
         }
     } catch (error) {
-        console.log(error)
-        res.status(500).json({message: "Server Error!"})
+        next(error)
     }
 }

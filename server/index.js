@@ -16,6 +16,13 @@ app.use(express.urlencoded({extended: true}))
 app.use('/api/users', userRoutes)
 app.use('/api/auth', authRoutes)
 
+app.use((err, req, res, next) => {
+    console.log(err)
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "internal Server Error!"
+    res.status(statusCode).json({success: false, message, statusCode})
+})
+
 app.get('/', (req, res) => {res.json({message: 'Hello World'})})
 
 connectDb();
